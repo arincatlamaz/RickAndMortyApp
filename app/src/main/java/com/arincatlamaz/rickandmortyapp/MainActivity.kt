@@ -29,8 +29,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 val body = response.body()!!
                 val name = body.name
-                val textView = findViewById<TextView>(R.id.nametextview)
-                textView.text = name
+
             }
 
             override fun onFailure(call: Call<GetCharacterResponse>, t: Throwable) {
