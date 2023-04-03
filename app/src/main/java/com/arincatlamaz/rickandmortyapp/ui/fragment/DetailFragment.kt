@@ -1,42 +1,46 @@
 package com.arincatlamaz.rickandmortyapp.ui.fragment
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.navArgs
 import com.arincatlamaz.rickandmortyapp.R
+import com.arincatlamaz.rickandmortyapp.databinding.FragmentDetailBinding
 import com.squareup.picasso.Picasso
 
 class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     private val args: DetailFragmentArgs by navArgs()
+    private lateinit var binding: FragmentDetailBinding
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val character = args.character
 
-        val txtIdCharacter = view.findViewById<TextView>(R.id.txt_id_character)
-        val txtStatus = view.findViewById<TextView>(R.id.txt_statusDetail)
-        val txtName = view.findViewById<TextView>(R.id.txt_name)
-        val txtSpecie = view.findViewById<TextView>(R.id.txt_specie)
-        val txtGender = view.findViewById<TextView>(R.id.txt_gender)
-        val txtNEpisodes = view.findViewById<TextView>(R.id.txt_n_episodes)
-        val txtOrigin = view.findViewById<TextView>(R.id.txt_origin)
-        val txtLocation = view.findViewById<TextView>(R.id.txt_location)
-        val imgCharacter = view.findViewById<ImageView>(R.id.img_character)
-
-        txtIdCharacter.text= character.id.toString()
-        txtStatus.text= character.status
-        Picasso.get().load(character.image).into(imgCharacter)
-        txtName.text = character.name
-        txtSpecie.text = character.species
-        txtGender.text = character.gender
-        txtNEpisodes.text = character.episode.size.toString()
-        txtOrigin.text = character.origin.name
-        txtLocation.text = character.location.name
+        binding.txtIdCharacter.text = character.id.toString()
+        binding.txtStatusDetail.text = character.status
+        Picasso.get().load(character.image).into(binding.imgCharacter)
+        binding.txtName.text = character.name
+        binding.txtSpecie.text = character.species
+        binding.txtGender.text = character.gender
+        binding.txtNEpisodes.text = character.episode.size.toString()
+        binding.txtOrigin.text = character.origin.name
+        binding.txtLocation.text = character.location.name
 
     }
 
