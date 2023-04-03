@@ -27,7 +27,6 @@ class FilterFragment : BottomSheetDialogFragment() {
     private val viewModel: SharedViewModel by activityViewModels{ SharedViewModelFactory(Repository()) }
     private lateinit var binding: FragmentFilterBinding
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_filter, container, false)
@@ -38,10 +37,10 @@ class FilterFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        viewModel.filterValue.observe(viewLifecycleOwner, {
+        viewModel.filterValue.observe(viewLifecycleOwner) {
             binding.chipgroupStatus.setChipChecked(it[0])
             binding.radiogroupGender.setButtonChecked(it[1])
-        })
+        }
 
         binding.btnMakeFilter.setOnClickListener {
             if(binding.chipgroupStatus.getTextChipChecked().isNotEmpty() && binding.radiogroupGender.getTextButtonChecked().isNotEmpty()) {
