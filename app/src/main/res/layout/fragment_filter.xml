@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".ui.fragment.FilterFragment">
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="Filter"
+            android:textAlignment="center"
+            android:textSize="18sp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+
+            <TextView
+                android:id="@+id/txt_title_episodes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status"
+                tools:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipgroup_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_alive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Alive"
+                    style="@style/CostumChip"
+                    android:textSize="14sp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_dead"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Dead"
+                    style="@style/CostumChip"
+                    android:textSize="14sp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_unknown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Unknown"
+                    style="@style/CostumChip"
+                    android:textSize="14sp" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Gender"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:visibility="gone"
+                android:id="@+id/radiogroup_gender"
+                android:layout_width="330dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    style="@style/Base.CardView"
+                    android:id="@+id/checkbox_female"
+                    android:layout_marginStart="0dp"
+                    android:text="Female" />
+
+                <RadioButton
+                    style="@style/Base.CardView"
+                    android:id="@+id/checkbox_male"
+                    android:text="Male" />
+
+                <RadioButton
+                    android:id="@+id/checkbox_genderless"
+                    style="@style/Base.CardView"
+                    android:text="Genderless" />
+
+                <RadioButton
+                    android:id="@+id/checkbox_unknown"
+                    style="@style/Base.CardView"
+                    android:text="Unknown" />
+
+            </RadioGroup>
+        </LinearLayout>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_make_filter"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="24dp"
+            android:text="Apply"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+</layout>
