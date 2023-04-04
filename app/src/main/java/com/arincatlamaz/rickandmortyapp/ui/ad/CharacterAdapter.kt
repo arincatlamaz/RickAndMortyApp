@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.arincatlamaz.rickandmortyapp.R
 import com.arincatlamaz.rickandmortyapp.databinding.ItemListBinding
 import com.arincatlamaz.rickandmortyapp.model.Character
+import com.arincatlamaz.rickandmortyapp.model.Favorite
 import com.arincatlamaz.rickandmortyapp.ui.fragment.ListFragmentDirections
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
@@ -21,6 +22,7 @@ import com.squareup.picasso.Picasso
 class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder>() {
 
     var listCharacters = emptyList<Character>()
+    var favList : ArrayList<Favorite> = ArrayList()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
@@ -32,11 +34,24 @@ class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHold
 
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
         holder.bind(listCharacters[position],null)
-        holder.favoriteBtn.setOnClickListener {
+
+        holder.favoriteBtn.setOnClickListener {view ->
 
             val variable = listCharacters.get(position).name
             Log.d("TAG",variable.toString())
             holder.favoriteBtn.setBackgroundResource(R.drawable.favorite_red)
+
+            var fav = Favorite(listCharacters[position].id,listCharacters[position].name,
+            listCharacters[position].status,listCharacters[position].image)
+
+            var exp = favList.add(fav)
+
+            Log.d("TAG EXP",favList.size.toString())
+
+            val action = ListFragmentDirections.listToFav(listCharacters[position])
+
+
+            view.findNavController().navigate(action)
 
         }
 

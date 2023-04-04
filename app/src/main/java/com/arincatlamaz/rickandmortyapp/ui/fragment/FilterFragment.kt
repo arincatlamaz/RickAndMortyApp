@@ -22,7 +22,6 @@ import com.arincatlamaz.rickandmortyapp.util.setChipChecked
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.NonDisposableHandle.parent
 
-
 class FilterFragment : BottomSheetDialogFragment() {
     private val viewModel: SharedViewModel by activityViewModels{ SharedViewModelFactory(Repository()) }
     private lateinit var binding: FragmentFilterBinding

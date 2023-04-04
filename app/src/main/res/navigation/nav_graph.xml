@@ -39,5 +39,9 @@
         android:id="@+id/favoriteFragment"
         android:name="com.arincatlamaz.rickandmortyapp.ui.fragment.FavoriteFragment"
         android:label=""
-        tools:layout="@layout/fragment_favorite" />
+        tools:layout="@layout/fragment_favorite">
+        <argument
+            android:name="favorite"
+            app:argType="com.arincatlamaz.rickandmortyapp.model.Character"/>
+    </fragment>
 </navigation>
