@@ -2,6 +2,7 @@ package com.arincatlamaz.rickandmortyapp.ui.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.ImageButton
@@ -12,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.arincatlamaz.rickandmortyapp.R
+import com.arincatlamaz.rickandmortyapp.model.Favorite
 import com.arincatlamaz.rickandmortyapp.service.Repository
 import com.arincatlamaz.rickandmortyapp.ui.ad.CharacterAdapter
 import com.arincatlamaz.rickandmortyapp.ui.vm.SharedViewModel
@@ -25,9 +27,10 @@ class ListFragment : Fragment(R.layout.fragment_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.listCharactersInEpisode.observe(viewLifecycleOwner, {
+        viewModel.listCharactersInEpisode.observe(viewLifecycleOwner) {
             adapter.setCharacters(it)
-        })
+        }
+
 
         val recyclerview = view.findViewById<RecyclerView>(R.id.recyclerview)
         val btnFilter = view.findViewById<ImageButton>(R.id.btn_filter)
@@ -36,6 +39,21 @@ class ListFragment : Fragment(R.layout.fragment_list) {
 
         recyclerview.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         recyclerview.adapter = adapter
+
+        var ls = adapter.favList
+
+        var exlist = ArrayList<Favorite>()
+
+        for (i in 0 until adapter.favList.size){
+            Log.d("FAVORITE LIST:", adapter.favList[i].name.toString())
+            exlist.add(adapter.favList[i])
+
+        }
+
+        Log.d("EX LIST:", exlist.size.toString())
+        Log.d("FAVORITE LIST SIZE:", ls.toString())
+
+
 
         btnFilter.setOnClickListener {
             findNavController().navigate(R.id.listToFilter)
@@ -47,9 +65,9 @@ class ListFragment : Fragment(R.layout.fragment_list) {
 
         getNameSearchView()
 
-        viewModel.isFilter.observe(viewLifecycleOwner, {
+        viewModel.isFilter.observe(viewLifecycleOwner) {
             txtReset.visibility = if (it) View.VISIBLE else View.INVISIBLE
-        })
+        }
 
         txtReset.setOnClickListener {
             viewModel.getCharacters(1)

@@ -18,11 +18,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     private val args: DetailFragmentArgs by navArgs()
     private lateinit var binding: FragmentDetailBinding
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail, container, false)
         return binding.root
     }
