@@ -1,12 +1,14 @@
 package com.arincatlamaz.rickandmortyapp.ui.fragment
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -31,7 +33,6 @@ class ListFragment : Fragment(R.layout.fragment_list) {
             adapter.setCharacters(it)
         }
 
-
         val recyclerview = view.findViewById<RecyclerView>(R.id.recyclerview)
         val btnFilter = view.findViewById<ImageButton>(R.id.btn_filter)
         val txtReset = view.findViewById<TextView>(R.id.txt_reset)
@@ -40,7 +41,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         recyclerview.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         recyclerview.adapter = adapter
 
-        var ls = adapter.favList
+        /*var ls = adapter.favList
 
         var exlist = ArrayList<Favorite>()
 
@@ -52,7 +53,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
 
         Log.d("EX LIST:", exlist.size.toString())
         Log.d("FAVORITE LIST SIZE:", ls.toString())
-
+*/
 
 
         btnFilter.setOnClickListener {

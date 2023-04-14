@@ -20,7 +20,6 @@ class CharacterAdapter() : RecyclerView.Adapter<CharacterAdapter.CharacterViewHo
     var listCharacters = emptyList<Character>()
     var favList : ArrayList<Favorite> = ArrayList()
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding: ItemListBinding = DataBindingUtil.inflate(layoutInflater, R.layout.item_list, parent, false)
@@ -33,17 +32,7 @@ class CharacterAdapter() : RecyclerView.Adapter<CharacterAdapter.CharacterViewHo
 
         holder.favoriteBtn.setOnClickListener {view ->
 
-
-            val variable = listCharacters.get(position).name
-            Log.d("TAG",variable.toString())
-            var intent = Intent(view.context, Favorite::class.java)
-            intent.putExtra("name",variable)
-            holder.favoriteBtn.setBackgroundResource(R.drawable.favorite_red)
-
-            var fav = Favorite(listCharacters[position].id,listCharacters[position].name,
-            listCharacters[position].status,listCharacters[position].image)
-
-            var exp = favList.add(fav)
+            sendFavToDB(position,holder)
 
             /*val action = ListFragmentDirections.listToFav(listCharacters[position])
             view.findNavController().navigate(action)*/
@@ -84,6 +73,14 @@ class CharacterAdapter() : RecyclerView.Adapter<CharacterAdapter.CharacterViewHo
         }
 
 
+    }
+
+    fun sendFavToDB(position: Int, holder: CharacterViewHolder){
+        var fav = Favorite(listCharacters[position].id,listCharacters[position].name,
+            listCharacters[position].status,listCharacters[position].image)
+        var exp = favList.add(fav)
+        holder.favoriteBtn.setBackgroundResource(R.drawable.favorite_red)
+        Log.d("ADDED TO FAV",favList.size.toString())
     }
 
 
