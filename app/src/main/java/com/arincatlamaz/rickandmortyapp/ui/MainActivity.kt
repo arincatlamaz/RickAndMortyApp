@@ -13,8 +13,6 @@ import com.arincatlamaz.rickandmortyapp.util.getSerialNum
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-//to get a serial num needed a context but cant resolve problem initializing context in CharacterAdapter
-
 class MainActivity : AppCompatActivity() {
     var navController: NavController? = null
     override fun onCreate(savedInstanceState: Bundle?) {
