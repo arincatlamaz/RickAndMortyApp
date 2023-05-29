@@ -17,11 +17,13 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.arincatlamaz.rickandmortyapp.R
 import com.arincatlamaz.rickandmortyapp.model.Favorite
 import com.arincatlamaz.rickandmortyapp.service.Repository
+import com.arincatlamaz.rickandmortyapp.ui.MainActivity
 import com.arincatlamaz.rickandmortyapp.ui.ad.CharacterAdapter
 import com.arincatlamaz.rickandmortyapp.ui.vm.SharedViewModel
 import com.arincatlamaz.rickandmortyapp.ui.vm.SharedViewModelFactory
 
 class ListFragment : Fragment(R.layout.fragment_list) {
+
 
     private val viewModel: SharedViewModel by activityViewModels { SharedViewModelFactory(Repository()) }
     var adapter = CharacterAdapter()

@@ -1,11 +1,15 @@
 package com.arincatlamaz.rickandmortyapp.util
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.provider.Settings
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 
 fun ChipGroup.getTextChipChecked(): String{
+
     val selectedId: Int = this.checkedChipId
     return if(selectedId > -1) findViewById<Chip>(selectedId).text.toString() else " "
 }
@@ -21,4 +25,9 @@ fun RadioGroup.getTextButtonChecked(): String {
 
 fun RadioGroup.setButtonChecked(selectedId: Int) {
     if(selectedId > 0) findViewById<RadioButton>(selectedId).isChecked = true
+}
+
+@SuppressLint("HardwareIds")
+fun getSerialNum(context: Context): String {
+    return Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
 }

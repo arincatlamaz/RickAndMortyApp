@@ -24,7 +24,7 @@ class FavoriteAdapter: RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>(
         var txt_name_characterFav = binding.txtNameCharacterFav
         var txt_statusDetailFav = binding.txtStatusDetailFav
 
-        fun bind(favorite: Favorite, context: Context?) {
+        fun bind(favorite: Favorite) {
             Picasso.get().load(favorite.image).into(character_imgFav)
             txt_statusDetailFav.text = favorite.status
             txt_id_characterFav.text = favorite.id.toString()
@@ -48,7 +48,7 @@ class FavoriteAdapter: RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>(
     }
 
     override fun onBindViewHolder(holder: FavoriteAdapter.FavoriteViewHolder, position: Int) {
-        holder.bind(favoriteList[position],null)
+        holder.bind(favoriteList[position])
 
 
     }

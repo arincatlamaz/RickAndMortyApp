@@ -13,7 +13,7 @@ import com.arincatlamaz.rickandmortyapp.databinding.FragmentFavoriteBinding
 import com.arincatlamaz.rickandmortyapp.model.Favorite
 import com.arincatlamaz.rickandmortyapp.ui.ad.CharacterAdapter
 import com.arincatlamaz.rickandmortyapp.ui.ad.FavoriteAdapter
-import java.lang.String
+import kotlin.String
 import java.util.*
 
 class FavoriteFragment : Fragment(R.layout.fragment_favorite) {

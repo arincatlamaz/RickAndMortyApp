@@ -12,13 +12,19 @@ import com.arincatlamaz.rickandmortyapp.R
 import com.arincatlamaz.rickandmortyapp.databinding.ItemListBinding
 import com.arincatlamaz.rickandmortyapp.model.Character
 import com.arincatlamaz.rickandmortyapp.model.Favorite
+import com.arincatlamaz.rickandmortyapp.ui.MainActivity
 import com.arincatlamaz.rickandmortyapp.ui.fragment.ListFragmentDirections
+import com.arincatlamaz.rickandmortyapp.util.addToFB
+import com.arincatlamaz.rickandmortyapp.util.getSerialNum
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 
 class CharacterAdapter() : RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder>() {
 
     var listCharacters = emptyList<Character>()
     var favList : ArrayList<Favorite> = ArrayList()
+    var db = Firebase.firestore
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -28,12 +34,12 @@ class CharacterAdapter() : RecyclerView.Adapter<CharacterAdapter.CharacterViewHo
     }
 
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
-        holder.bind(listCharacters[position],null)
+        holder.bind(listCharacters[position])
 
-        holder.favoriteBtn.setOnClickListener {view ->
+        holder.favoriteBtn.setOnClickListener {
 
-            sendFavToDB(position,holder)
-
+            addToFB(it.context,position,listCharacters[position].name)
+            Log.d("Item:",listCharacters[position].name)
             /*val action = ListFragmentDirections.listToFav(listCharacters[position])
             view.findNavController().navigate(action)*/
 
@@ -63,7 +69,7 @@ class CharacterAdapter() : RecyclerView.Adapter<CharacterAdapter.CharacterViewHo
         var name_character = binding.txtNameCharacter
 
 
-        fun bind(character: Character, context: Context?) {
+        fun bind(character: Character) {
 
             Picasso.get().load(character.image).into(image_character)
             status_type.text = character.status
@@ -75,13 +81,13 @@ class CharacterAdapter() : RecyclerView.Adapter<CharacterAdapter.CharacterViewHo
 
     }
 
-    fun sendFavToDB(position: Int, holder: CharacterViewHolder){
+    /*fun sendFavToDB(position: Int, holder: CharacterViewHolder){
         var fav = Favorite(listCharacters[position].id,listCharacters[position].name,
             listCharacters[position].status,listCharacters[position].image)
         var exp = favList.add(fav)
         holder.favoriteBtn.setBackgroundResource(R.drawable.favorite_red)
         Log.d("ADDED TO FAV",favList.size.toString())
-    }
+    }*/
 
 
 
