@@ -2,54 +2,54 @@ package com.arincatlamaz.rickandmortyapp.util
 
 import android.content.Context
 import android.util.Log
+import android.widget.ImageButton
+import com.arincatlamaz.rickandmortyapp.R
+import com.arincatlamaz.rickandmortyapp.model.User
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-fun addToFB (context: Context, position: Int, name: String) {
 
-    val serial2 = hashMapOf(
-        "serial" to getSerialNum(context),
-        "favorite" to position,
-        "name" to name
-    )
-
+fun addToFB(context: Context, position: Int, name: String, favoriteBtn: ImageButton) {
     val db = Firebase.firestore
-    val col = db.collection("users")
+    val docRef = db.collection("users").document(getSerialNum(context))
 
-    col.document(getSerialNum(context))
-        .set(serial2)
-        .addOnSuccessListener {
-            Log.d("SERIAL", "USER ADDED")
+    docRef.get().addOnSuccessListener { documentSnapshot ->
+        val favoriteList = documentSnapshot.toObject(User::class.java)?.favoriteList
+
+        if (favoriteList != null) {
+            val newItem = "$position: $name"
+            if (favoriteList.contains(newItem)) {
+                favoriteList.remove(newItem)
+                docRef.set(User(favoriteList))
+                    .addOnSuccessListener {
+                        Log.d("SERIAL", "Favorite removed")
+                        favoriteBtn.setBackgroundResource(R.drawable.favorite_gray)
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.w("SERIAL", "Error removing favorite: ${exception.message}")
+                    }
+            } else {
+                favoriteList.add(newItem)
+                docRef.set(User(favoriteList))
+                    .addOnSuccessListener {
+                        Log.d("SERIAL", "Favorite added")
+                        favoriteBtn.setBackgroundResource(R.drawable.favorite_red)
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.w("SERIAL", "Error adding favorite: ${exception.message}")
+                    }
+            }
+        } else {
+            val newFavoriteList = arrayListOf("$position: $name")
+            docRef.set(User(newFavoriteList))
+                .addOnSuccessListener {
+                    Log.d("SERIAL", "Favorite added")
+                    favoriteBtn.setBackgroundResource(R.drawable.favorite_red)
+                }
+                .addOnFailureListener { exception ->
+                    Log.w("SERIAL", "Error adding favorite: ${exception.message}")
+                }
         }
-        .addOnFailureListener{
-            Log.w("SERIAL", "Error adding document")
-        }
+    }
 }
 
-
-fun getFromFB(){
-
-}
-
-
-/*
-fun addToFB (context: Context, position: Int, name: String) {
-
-    val serial2 = hashMapOf(
-        "serial" to getSerialNum(context),
-        "favorite" to position,
-        "name" to name
-    )
-
-    val db = Firebase.firestore
-    val col = db.collection("users")
-
-    col.document(getSerialNum(context))
-        .set(serial2)
-        .addOnSuccessListener {
-            Log.d("SERIAL", "USER ADDED")
-        }
-        .addOnFailureListener{
-            Log.w("SERIAL", "Error adding document")
-        }
-}*/

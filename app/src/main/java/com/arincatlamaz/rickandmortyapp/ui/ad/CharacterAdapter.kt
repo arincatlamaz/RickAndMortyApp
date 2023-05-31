@@ -23,8 +23,6 @@ import com.squareup.picasso.Picasso
 class CharacterAdapter() : RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder>() {
 
     var listCharacters = emptyList<Character>()
-    var favList : ArrayList<Favorite> = ArrayList()
-    var db = Firebase.firestore
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -38,10 +36,9 @@ class CharacterAdapter() : RecyclerView.Adapter<CharacterAdapter.CharacterViewHo
 
         holder.favoriteBtn.setOnClickListener {
 
-            addToFB(it.context,position,listCharacters[position].name)
-            Log.d("Item:",listCharacters[position].name)
-            /*val action = ListFragmentDirections.listToFav(listCharacters[position])
-            view.findNavController().navigate(action)*/
+            addToFB(it.context,position,listCharacters[position].name, favoriteBtn = holder.favoriteBtn)
+            holder.favoriteBtn.setBackgroundResource(R.drawable.favorite_red)
+
 
         }
 
@@ -80,14 +77,6 @@ class CharacterAdapter() : RecyclerView.Adapter<CharacterAdapter.CharacterViewHo
 
 
     }
-
-    /*fun sendFavToDB(position: Int, holder: CharacterViewHolder){
-        var fav = Favorite(listCharacters[position].id,listCharacters[position].name,
-            listCharacters[position].status,listCharacters[position].image)
-        var exp = favList.add(fav)
-        holder.favoriteBtn.setBackgroundResource(R.drawable.favorite_red)
-        Log.d("ADDED TO FAV",favList.size.toString())
-    }*/
 
 
 
