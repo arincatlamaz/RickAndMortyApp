@@ -4,17 +4,22 @@ import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.SearchView
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.arincatlamaz.rickandmortyapp.R
+import com.arincatlamaz.rickandmortyapp.databinding.FragmentFavoriteBinding
+import com.arincatlamaz.rickandmortyapp.databinding.FragmentListBinding
 import com.arincatlamaz.rickandmortyapp.model.Favorite
 import com.arincatlamaz.rickandmortyapp.model.User
 import com.arincatlamaz.rickandmortyapp.service.Repository
@@ -28,58 +33,41 @@ class ListFragment : Fragment(R.layout.fragment_list) {
 
     private val viewModel: SharedViewModel by activityViewModels { SharedViewModelFactory(Repository()) }
     var adapter = CharacterAdapter()
-    var userclass = User()
+    private lateinit var binding: FragmentListBinding
 
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_list, container, false)
 
         viewModel.listCharactersInEpisode.observe(viewLifecycleOwner) {
             adapter.setCharacters(it)
         }
 
-
-        val recyclerview = view.findViewById<RecyclerView>(R.id.recyclerview)
-        val btnFilter = view.findViewById<ImageButton>(R.id.btn_filter)
-        val txtReset = view.findViewById<TextView>(R.id.txt_reset)
-        val favListBtn = view.findViewById<ImageButton>(R.id.favListBtn)
-
-        recyclerview.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        recyclerview.adapter = adapter
-
-        /*var ls = adapter.favList
-
-        var exlist = ArrayList<Favorite>()
-
-        for (i in 0 until adapter.favList.size){
-            Log.d("FAVORITE LIST:", adapter.favList[i].name.toString())
-            exlist.add(adapter.favList[i])
-
-        }
-
-        Log.d("EX LIST:", exlist.size.toString())
-        Log.d("FAVORITE LIST SIZE:", ls.toString())
-*/
+        binding.recyclerview.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        binding.recyclerview.adapter = adapter
 
 
-        btnFilter.setOnClickListener {
+
+        binding.btnFilter.setOnClickListener {
             findNavController().navigate(R.id.listToFilter)
         }
 
-        favListBtn.setOnClickListener {
+        binding.favListBtn.setOnClickListener {
             findNavController().navigate(R.id.listToFav)
         }
 
         getNameSearchView()
 
         viewModel.isFilter.observe(viewLifecycleOwner) {
-            txtReset.visibility = if (it) View.VISIBLE else View.INVISIBLE
+            binding.txtReset.visibility = if (it) View.VISIBLE else View.INVISIBLE
         }
 
-        txtReset.setOnClickListener {
+        binding.txtReset.setOnClickListener {
             viewModel.getCharacters(1)
             viewModel.filterValue.value = arrayOf(0, 0)
         }
+        return binding.root
     }
 
     private fun getNameSearchView() {
