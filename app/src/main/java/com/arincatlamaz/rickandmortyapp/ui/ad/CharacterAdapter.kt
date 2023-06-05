@@ -1,5 +1,4 @@
 package com.arincatlamaz.rickandmortyapp.ui.ad
-
 import android.content.Context
 import android.content.Intent
 import android.util.Log
@@ -11,17 +10,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.arincatlamaz.rickandmortyapp.R
 import com.arincatlamaz.rickandmortyapp.databinding.ItemListBinding
 import com.arincatlamaz.rickandmortyapp.model.Character
-import com.arincatlamaz.rickandmortyapp.model.Favorite
 import com.arincatlamaz.rickandmortyapp.ui.MainActivity
 import com.arincatlamaz.rickandmortyapp.ui.fragment.ListFragmentDirections
 import com.arincatlamaz.rickandmortyapp.util.addToFB
 import com.arincatlamaz.rickandmortyapp.util.getSerialNum
+import com.arincatlamaz.rickandmortyapp.util.setFavoriteButton
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
-import kotlin.coroutines.coroutineContext
 
-class CharacterAdapter() : RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder>() {
+class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder>() {
 
     var listCharacters = emptyList<Character>()
 
@@ -35,14 +33,10 @@ class CharacterAdapter() : RecyclerView.Adapter<CharacterAdapter.CharacterViewHo
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
         holder.bind(listCharacters[position])
 
-//        getFromFB(holder.itemView.context)
+        setFavoriteButton(holder.itemView.context, holder.favoriteBtn, position, listCharacters[position].name)
 
         holder.favoriteBtn.setOnClickListener {
-
-            addToFB(it.context,position,listCharacters[position].name, favoriteBtn = holder.favoriteBtn)
-            holder.favoriteBtn.setBackgroundResource(R.drawable.favorite_red)
-
-
+            addToFB(it.context, position, listCharacters[position].name, favoriteBtn = holder.favoriteBtn)
         }
 
         holder.itemView.setOnClickListener { view ->
@@ -68,19 +62,11 @@ class CharacterAdapter() : RecyclerView.Adapter<CharacterAdapter.CharacterViewHo
         var id_number = binding.txtIdCharacter
         var name_character = binding.txtNameCharacter
 
-
         fun bind(character: Character) {
-
             Picasso.get().load(character.image).into(image_character)
             status_type.text = character.status
             id_number.text = character.id.toString()
             name_character.text = character.name
-
         }
-
-
     }
-
-
-
 }

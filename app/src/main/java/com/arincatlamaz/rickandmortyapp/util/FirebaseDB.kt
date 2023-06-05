@@ -1,5 +1,6 @@
 package com.arincatlamaz.rickandmortyapp.util
 
+
 import android.content.Context
 import android.util.Log
 import android.widget.ImageButton
@@ -9,9 +10,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 fun addToFB(context: Context, position: Int, name: String, favoriteBtn: ImageButton) {
     val db = Firebase.firestore
@@ -21,14 +19,13 @@ fun addToFB(context: Context, position: Int, name: String, favoriteBtn: ImageBut
         val favoriteList = documentSnapshot.toObject(User::class.java)?.favoriteList
 
         if (favoriteList != null) {
-            Log.d("List check:",favoriteList.toString())
+            Log.d("List check:", favoriteList.toString())
             val newItem = "Position: $position - Name: $name"
             if (favoriteList.contains(newItem)) {
                 favoriteList.remove(newItem)
                 docRef.set(User(favoriteList))
                     .addOnSuccessListener {
                         Log.d("SERIAL", "Favorite removed")
-                        
                         favoriteBtn.setBackgroundResource(R.drawable.favorite_gray)
                     }
                     .addOnFailureListener { exception ->
@@ -59,26 +56,26 @@ fun addToFB(context: Context, position: Int, name: String, favoriteBtn: ImageBut
     }
 }
 
-/*fun getFromFB(context: Context){
-    val db = FirebaseFirestore.getInstance()
+fun setFavoriteButton(context: Context, favoriteBtn: ImageButton, position: Int, name: String) {
+    val db = Firebase.firestore
+    val docRef = db.collection("users").document(getSerialNum(context))
 
-    db.collection("users")
-        .get()
-        .addOnSuccessListener { querySnapshot ->
-            for (document in querySnapshot) {
-                val favoriteList = document.get("favoriteList") as ArrayList<String>?
+    docRef.get().addOnSuccessListener { documentSnapshot ->
+        val favoriteList = documentSnapshot.toObject(User::class.java)?.favoriteList
 
-                if (favoriteList != null) {
-                    for (item in favoriteList) {
-                        Log.d("FavoriteItem", item)
-                    }
-                }
+        if (favoriteList != null) {
+            val newItem = "Position: $position - Name: $name"
+            if (favoriteList.contains(newItem)) {
+                favoriteBtn.setBackgroundResource(R.drawable.favorite_red)
+            } else {
+                favoriteBtn.setBackgroundResource(R.drawable.favorite_gray)
             }
+        } else {
+            favoriteBtn.setBackgroundResource(R.drawable.favorite_gray)
         }
-        .addOnFailureListener { exception ->
-            // Hata durumunda işlemler
-        }
-}*/
+    }
+}
+
 
 
 

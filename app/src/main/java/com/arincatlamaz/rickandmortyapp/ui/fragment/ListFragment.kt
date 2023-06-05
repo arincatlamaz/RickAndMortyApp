@@ -38,7 +38,6 @@ class ListFragment : Fragment(R.layout.fragment_list) {
             adapter.setCharacters(it)
         }
 
-        Log.d("Check:",userclass.favoriteList.size.toString())
 
         val recyclerview = view.findViewById<RecyclerView>(R.id.recyclerview)
         val btnFilter = view.findViewById<ImageButton>(R.id.btn_filter)
