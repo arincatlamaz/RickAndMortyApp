@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.arincatlamaz.rickandmortyapp.R
 import com.arincatlamaz.rickandmortyapp.model.Favorite
+import com.arincatlamaz.rickandmortyapp.model.User
 import com.arincatlamaz.rickandmortyapp.service.Repository
 import com.arincatlamaz.rickandmortyapp.ui.MainActivity
 import com.arincatlamaz.rickandmortyapp.ui.ad.CharacterAdapter
@@ -27,6 +28,8 @@ class ListFragment : Fragment(R.layout.fragment_list) {
 
     private val viewModel: SharedViewModel by activityViewModels { SharedViewModelFactory(Repository()) }
     var adapter = CharacterAdapter()
+    var userclass = User()
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,6 +37,8 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         viewModel.listCharactersInEpisode.observe(viewLifecycleOwner) {
             adapter.setCharacters(it)
         }
+
+        Log.d("Check:",userclass.favoriteList.size.toString())
 
         val recyclerview = view.findViewById<RecyclerView>(R.id.recyclerview)
         val btnFilter = view.findViewById<ImageButton>(R.id.btn_filter)

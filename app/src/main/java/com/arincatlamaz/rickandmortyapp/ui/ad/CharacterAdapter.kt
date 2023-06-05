@@ -19,6 +19,7 @@ import com.arincatlamaz.rickandmortyapp.util.getSerialNum
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
+import kotlin.coroutines.coroutineContext
 
 class CharacterAdapter() : RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder>() {
 
@@ -33,6 +34,8 @@ class CharacterAdapter() : RecyclerView.Adapter<CharacterAdapter.CharacterViewHo
 
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
         holder.bind(listCharacters[position])
+
+//        getFromFB(holder.itemView.context)
 
         holder.favoriteBtn.setOnClickListener {
 

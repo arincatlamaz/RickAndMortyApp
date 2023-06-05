@@ -5,13 +5,13 @@ import android.util.Log
 import android.widget.ImageButton
 import com.arincatlamaz.rickandmortyapp.R
 import com.arincatlamaz.rickandmortyapp.model.User
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-
 
 fun addToFB(context: Context, position: Int, name: String, favoriteBtn: ImageButton) {
     val db = Firebase.firestore
@@ -21,12 +21,14 @@ fun addToFB(context: Context, position: Int, name: String, favoriteBtn: ImageBut
         val favoriteList = documentSnapshot.toObject(User::class.java)?.favoriteList
 
         if (favoriteList != null) {
+            Log.d("List check:",favoriteList.toString())
             val newItem = "Position: $position - Name: $name"
             if (favoriteList.contains(newItem)) {
                 favoriteList.remove(newItem)
                 docRef.set(User(favoriteList))
                     .addOnSuccessListener {
                         Log.d("SERIAL", "Favorite removed")
+                        
                         favoriteBtn.setBackgroundResource(R.drawable.favorite_gray)
                     }
                     .addOnFailureListener { exception ->
@@ -56,4 +58,28 @@ fun addToFB(context: Context, position: Int, name: String, favoriteBtn: ImageBut
         }
     }
 }
+
+/*fun getFromFB(context: Context){
+    val db = FirebaseFirestore.getInstance()
+
+    db.collection("users")
+        .get()
+        .addOnSuccessListener { querySnapshot ->
+            for (document in querySnapshot) {
+                val favoriteList = document.get("favoriteList") as ArrayList<String>?
+
+                if (favoriteList != null) {
+                    for (item in favoriteList) {
+                        Log.d("FavoriteItem", item)
+                    }
+                }
+            }
+        }
+        .addOnFailureListener { exception ->
+            // Hata durumunda işlemler
+        }
+}*/
+
+
+
 
