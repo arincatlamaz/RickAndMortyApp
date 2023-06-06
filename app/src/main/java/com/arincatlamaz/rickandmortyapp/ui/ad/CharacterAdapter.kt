@@ -33,10 +33,12 @@ class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHold
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
         holder.bind(listCharacters[position])
 
-        setFavoriteButton(holder.itemView.context, holder.favoriteBtn, position, listCharacters[position].name)
+        setFavoriteButton(holder.itemView.context, holder.favoriteBtn, position,
+            listCharacters[position].name, listCharacters[position].image, listCharacters[position].status)
 
         holder.favoriteBtn.setOnClickListener {
-            addToFB(it.context, position, listCharacters[position].name, favoriteBtn = holder.favoriteBtn)
+            addToFB(it.context, position, listCharacters[position].name,
+                favoriteBtn = holder.favoriteBtn, listCharacters[position].image, listCharacters[position].status)
         }
 
         holder.itemView.setOnClickListener { view ->

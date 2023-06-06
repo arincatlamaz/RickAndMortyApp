@@ -11,7 +11,14 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 
-fun addToFB(context: Context, position: Int, name: String, favoriteBtn: ImageButton) {
+fun addToFB(
+    context: Context,
+    position: Int,
+    name: String,
+    favoriteBtn: ImageButton,
+    image: String,
+    status: String
+) {
     val db = Firebase.firestore
     val docRef = db.collection("users").document(getSerialNum(context))
 
@@ -20,7 +27,8 @@ fun addToFB(context: Context, position: Int, name: String, favoriteBtn: ImageBut
 
         if (favoriteList != null) {
             Log.d("List check:", favoriteList.toString())
-            val newItem = "Position: $position - Name: $name"
+            val newItem = "Position:$position\nName:$name\nImage:$image\nStatus:$status\n"
+
             if (favoriteList.contains(newItem)) {
                 favoriteList.remove(newItem)
                 docRef.set(User(favoriteList))
@@ -43,7 +51,9 @@ fun addToFB(context: Context, position: Int, name: String, favoriteBtn: ImageBut
                     }
             }
         } else {
-            val newFavoriteList = arrayListOf("Position: $position - Name: $name")
+            val newFavoriteList = arrayListOf(
+                "Position:$position\nName:$name\nImage:$image\nStatus:$status\n"
+            )
             docRef.set(User(newFavoriteList))
                 .addOnSuccessListener {
                     Log.d("SERIAL", "Favorite added")
@@ -56,7 +66,14 @@ fun addToFB(context: Context, position: Int, name: String, favoriteBtn: ImageBut
     }
 }
 
-fun setFavoriteButton(context: Context, favoriteBtn: ImageButton, position: Int, name: String) {
+fun setFavoriteButton(
+    context: Context,
+    favoriteBtn: ImageButton,
+    position: Int,
+    name: String,
+    image: String,
+    status: String
+) {
     val db = Firebase.firestore
     val docRef = db.collection("users").document(getSerialNum(context))
 
@@ -64,7 +81,8 @@ fun setFavoriteButton(context: Context, favoriteBtn: ImageButton, position: Int,
         val favoriteList = documentSnapshot.toObject(User::class.java)?.favoriteList
 
         if (favoriteList != null) {
-            val newItem = "Position: $position - Name: $name"
+            val newItem = "Position:$position\nName:$name\nImage:$image\nStatus:$status\n"
+
             if (favoriteList.contains(newItem)) {
                 favoriteBtn.setBackgroundResource(R.drawable.favorite_red)
             } else {

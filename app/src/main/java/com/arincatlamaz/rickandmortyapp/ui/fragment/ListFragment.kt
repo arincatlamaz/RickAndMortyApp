@@ -35,8 +35,6 @@ class ListFragment : Fragment(R.layout.fragment_list) {
     var adapter = CharacterAdapter()
     private lateinit var binding: FragmentListBinding
 
-
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_list, container, false)
 
@@ -46,8 +44,6 @@ class ListFragment : Fragment(R.layout.fragment_list) {
 
         binding.recyclerview.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         binding.recyclerview.adapter = adapter
-
-
 
         binding.btnFilter.setOnClickListener {
             findNavController().navigate(R.id.listToFilter)
