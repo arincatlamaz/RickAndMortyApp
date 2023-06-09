@@ -1,29 +1,19 @@
 package com.arincatlamaz.rickandmortyapp.ui.fragment
 
 import android.content.Context
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.arincatlamaz.rickandmortyapp.R
-import com.arincatlamaz.rickandmortyapp.databinding.FragmentFavoriteBinding
 import com.arincatlamaz.rickandmortyapp.databinding.FragmentListBinding
-import com.arincatlamaz.rickandmortyapp.model.Favorite
-import com.arincatlamaz.rickandmortyapp.model.User
 import com.arincatlamaz.rickandmortyapp.service.Repository
-import com.arincatlamaz.rickandmortyapp.ui.MainActivity
 import com.arincatlamaz.rickandmortyapp.ui.ad.CharacterAdapter
 import com.arincatlamaz.rickandmortyapp.ui.vm.SharedViewModel
 import com.arincatlamaz.rickandmortyapp.ui.vm.SharedViewModelFactory
@@ -35,14 +25,19 @@ class ListFragment : Fragment(R.layout.fragment_list) {
     var adapter = CharacterAdapter()
     private lateinit var binding: FragmentListBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_list, container, false)
 
         viewModel.listCharactersInEpisode.observe(viewLifecycleOwner) {
             adapter.setCharacters(it)
         }
 
-        binding.recyclerview.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        binding.recyclerview.layoutManager =
+            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         binding.recyclerview.adapter = adapter
 
         binding.btnFilter.setOnClickListener {

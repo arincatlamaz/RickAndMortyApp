@@ -1,6 +1,5 @@
 package com.arincatlamaz.rickandmortyapp.model
 
-
-data class CharacterList (
-    var results : List<Character>
+data class CharacterList(
+    var results: List<Character>
 )

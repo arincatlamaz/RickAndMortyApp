@@ -1,14 +1,11 @@
 package com.arincatlamaz.rickandmortyapp.util
 
-
 import android.content.Context
 import android.util.Log
 import android.widget.ImageButton
 import com.arincatlamaz.rickandmortyapp.R
 import com.arincatlamaz.rickandmortyapp.model.User
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 
 fun addToFB(

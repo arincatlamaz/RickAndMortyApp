@@ -5,8 +5,6 @@ import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.navArgs
 import com.arincatlamaz.rickandmortyapp.R
@@ -18,7 +16,11 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     private val args: DetailFragmentArgs by navArgs()
     private lateinit var binding: FragmentDetailBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail, container, false)
         return binding.root
     }

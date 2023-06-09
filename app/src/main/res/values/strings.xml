@@ -2,4 +2,19 @@
     <string name="app_name">RickAndMortyApp</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="todo">TODO</string>
+    <string name="episodes">Episodes</string>
+    <string name="origin">Origin</string>
+    <string name="location">Location</string>
+    <string name="filter">Filter</string>
+    <string name="status">Status</string>
+    <string name="alive">Alive</string>
+    <string name="dead">Dead</string>
+    <string name="unknown">Unknown</string>
+    <string name="gender">Gender</string>
+    <string name="female">Female</string>
+    <string name="male">Male</string>
+    <string name="genderless">Genderless</string>
+    <string name="apply">Apply</string>
+    <string name="todos">TODO</string>
 </resources>

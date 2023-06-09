@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:tools="http://schemas.android.com/tools"
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.fragment.DetailFragment">
@@ -23,7 +22,7 @@
                 android:id="@+id/txt_episodes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Episodes"
+                android:text="@string/episodes"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -62,7 +61,7 @@
                 android:id="@+id/txt_titulo_origin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Origin"
+                android:text="@string/origin"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -91,7 +90,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Location"
+                android:text="@string/location"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/txt_origin"
@@ -140,10 +139,10 @@
                 tools:text="7" />
 
             <ImageView
-                android:background="@mipmap/ic_launcher"
                 android:id="@+id/img_character"
                 android:layout_width="220dp"
                 android:layout_height="220dp"
+                android:contentDescription="@string/todo"
                 app:layout_constraintBottom_toTopOf="@+id/txt_gender"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -159,8 +158,8 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="24dp"
                 android:maxLines="2"
-                android:textSize="20sp"
                 android:textAlignment="center"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"

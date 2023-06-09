@@ -1,7 +1,5 @@
 package com.arincatlamaz.rickandmortyapp.ui.ad
-import android.content.Context
-import android.content.Intent
-import android.util.Log
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -10,13 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.arincatlamaz.rickandmortyapp.R
 import com.arincatlamaz.rickandmortyapp.databinding.ItemListBinding
 import com.arincatlamaz.rickandmortyapp.model.Character
-import com.arincatlamaz.rickandmortyapp.ui.MainActivity
 import com.arincatlamaz.rickandmortyapp.ui.fragment.ListFragmentDirections
 import com.arincatlamaz.rickandmortyapp.util.addToFB
-import com.arincatlamaz.rickandmortyapp.util.getSerialNum
 import com.arincatlamaz.rickandmortyapp.util.setFavoriteButton
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 
 class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder>() {
@@ -25,7 +19,8 @@ class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHold
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val binding: ItemListBinding = DataBindingUtil.inflate(layoutInflater, R.layout.item_list, parent, false)
+        val binding: ItemListBinding =
+            DataBindingUtil.inflate(layoutInflater, R.layout.item_list, parent, false)
 
         return CharacterViewHolder(binding)
     }
@@ -33,12 +28,25 @@ class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHold
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
         holder.bind(listCharacters[position])
 
-        setFavoriteButton(holder.itemView.context, holder.favoriteBtn, position,
-            listCharacters[position].name, listCharacters[position].image, listCharacters[position].status)
+
+        setFavoriteButton(
+            holder.itemView.context,
+            holder.favoriteBtn,
+            position,
+            listCharacters[position].name,
+            listCharacters[position].image,
+            listCharacters[position].status
+        )
 
         holder.favoriteBtn.setOnClickListener {
-            addToFB(it.context, position, listCharacters[position].name,
-                favoriteBtn = holder.favoriteBtn, listCharacters[position].image, listCharacters[position].status)
+            addToFB(
+                it.context,
+                position,
+                listCharacters[position].name,
+                favoriteBtn = holder.favoriteBtn,
+                listCharacters[position].image,
+                listCharacters[position].status
+            )
         }
 
         holder.itemView.setOnClickListener { view ->
@@ -57,7 +65,8 @@ class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHold
         notifyDataSetChanged()
     }
 
-    inner class CharacterViewHolder(binding: ItemListBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class CharacterViewHolder(binding: ItemListBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         var favoriteBtn = binding.favoriteBtn
         var image_character = binding.characterImg
         var status_type = binding.txtStatusDetail
