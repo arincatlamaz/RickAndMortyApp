@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.navArgs
 import com.arincatlamaz.rickandmortyapp.R
@@ -23,6 +24,12 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail, container, false)
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val actionBar = (requireActivity() as AppCompatActivity).supportActionBar
+        actionBar?.title = "Character Detail"
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

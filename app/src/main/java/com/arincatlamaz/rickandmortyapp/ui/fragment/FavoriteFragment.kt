@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -37,6 +38,14 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
 
         return binding.root
     }
+
+    override fun onResume() {
+        super.onResume()
+        val actionBar = (requireActivity() as AppCompatActivity).supportActionBar
+        actionBar?.title = "Favorites"
+    }
+
+
 
     private fun parseFavoriteItems(favorites: List<String>): ArrayList<Favorite> {
         val favoriteItems = ArrayList<Favorite>()
