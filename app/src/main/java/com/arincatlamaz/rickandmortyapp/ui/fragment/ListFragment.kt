@@ -26,7 +26,6 @@ class ListFragment : Fragment() {
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_list, container, false)
         return binding.root
@@ -64,7 +63,7 @@ class ListFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null // Binding nesnesini temizleyin.
+        _binding = null
     }
 
     private fun getNameSearchView() {
