@@ -18,27 +18,29 @@ import com.arincatlamaz.rickandmortyapp.ui.ad.CharacterAdapter
 import com.arincatlamaz.rickandmortyapp.ui.vm.SharedViewModel
 import com.arincatlamaz.rickandmortyapp.ui.vm.SharedViewModelFactory
 
-class ListFragment : Fragment(R.layout.fragment_list) {
-
+class ListFragment : Fragment() {
 
     private val viewModel: SharedViewModel by activityViewModels { SharedViewModelFactory(Repository()) }
     var adapter = CharacterAdapter()
-    private lateinit var binding: FragmentListBinding
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_list, container, false)
+    private var _binding: FragmentListBinding? = null
+    private val binding get() = _binding!!
+
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_list, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.recyclerview.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        binding.recyclerview.adapter = adapter
 
         viewModel.listCharactersInEpisode.observe(viewLifecycleOwner) {
             adapter.setCharacters(it)
         }
-
-        binding.recyclerview.layoutManager =
-            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        binding.recyclerview.adapter = adapter
 
         binding.btnFilter.setOnClickListener {
             findNavController().navigate(R.id.listToFilter)
@@ -58,7 +60,11 @@ class ListFragment : Fragment(R.layout.fragment_list) {
             viewModel.getCharacters(1)
             viewModel.filterValue.value = arrayOf(0, 0)
         }
-        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null // Binding nesnesini temizleyin.
     }
 
     private fun getNameSearchView() {
